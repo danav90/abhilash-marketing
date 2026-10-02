@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="brand_base.css">
+<style>
+  .metric {
+    font-size: 240px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--brand-accent);
+    margin: 0;
+  }
+  .metric-label {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--brand-text);
+    opacity: 0.85;
+    margin: 24px 0 0 0;
+  }
+  .description {
+    font-size: 32px;
+    line-height: 1.5;
+    color: var(--brand-text-muted);
+    max-width: 850px;
+    margin: 40px 0 0 0;
+  }
+  .center-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+  }
+  .bottom-row {
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div>
+    <div class="brand-row">
+      <div class="brand-name">{{BRAND}}</div>
+    </div>
+    <div class="brand-rule"></div>
+  </div>
+  <div class="center-block">
+    <p class="metric">{{METRIC}}</p>
+    <p class="metric-label">{{METRIC_LABEL}}</p>
+    <p class="description">{{DESCRIPTION}}</p>
+  </div>
+  <div class="bottom-row">
+    <span class="site-badge">{{WEBSITE}}</span>
+  </div>
+</div>
+</body>
+</html>

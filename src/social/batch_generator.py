@@ -1,0 +1,54 @@
+"""Bulk batch generation from batch.json config."""
+
+import json
+from pathlib import Path
+
+from src.social.generate_image import render_single
+
+OUTPUT_ROOT = Path(__file__).resolve().parents[2]
+
+
+def generate_batch(config_path: Path) -> dict:
+    """Read batch.json, render each entry via render_single.
+
+    Entry format:
+      {"template": "quote", "brand": "webscraper", "platform": "instagram",
+       "variables": {...}, "output": "posts/webscraper_quote_01.png"}
+
+    Continues on per-item failure (log + skip).
+    Returns {"total": N, "success": M, "failed": [...], "output_dir": ...}.
+    """
+    config_path = Path(config_path)
+    with open(config_path, encoding="utf-8") as f:
+        config = json.load(f)
+
+    posts = config.get("posts", [])
+    total = len(posts)
+    success = 0
+    failed: list = []
+    outputs: list = []
+
+    for entry in posts:
+        template = entry.get("template", "")
+        brand = entry.get("brand", "")
+        platform = entry.get("platform", "")
+        variables = dict(entry.get("variables") or {})
+        # Merge top-level platform into variables so render_single picks dimensions.
+        if platform and "platform" not in variables:
+            variables["platform"] = platform
+        rel_output = entry.get("output", "")
+        # Resolve relative outputs against repo root.
+        out_path = Path(rel_output)
+        if not out_path.is_absolute():
+            out_path = OUTPUT_ROOT / rel_output
+        try:
+            result = render_single(template, brand, variables, out_path)
+            success += 1
+            outputs.append(str(result))
+        except Exception as exc:  # noqa: BLE001 - batch must continue
+            print(f"FAILED {template}/{brand} -> {rel_output}: {exc}")
+            failed.append({"entry": entry, "error": str(exc)})
+
+    # output_dir: common parent of outputs, fallback posts/.
+    output_dir = str(OUTPUT_ROOT / "posts")
+    return {"total": total, "success": success, "failed": failed, "output_dir": output_dir}

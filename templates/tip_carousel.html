@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="brand_base.css">
+<style>
+  .slide-badge {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 3px solid var(--brand-accent);
+    color: var(--brand-accent);
+    font-size: 32px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .heading {
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--brand-text);
+    margin: 0;
+    max-width: 900px;
+  }
+  .body-text {
+    font-size: 36px;
+    line-height: 1.5;
+    color: var(--brand-text-muted);
+    max-width: 850px;
+    margin: 36px 0 0 0;
+  }
+  .center-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+  }
+  .bottom-row {
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div>
+    <div class="brand-row">
+      <div class="brand-name">{{BRAND}}</div>
+      <div class="slide-badge">{{SLIDE_NUM}}</div>
+    </div>
+    <div class="brand-rule"></div>
+  </div>
+  <div class="center-block">
+    <p class="heading">{{HEADLINE}}</p>
+    <p class="body-text">{{SUBTEXT}}</p>
+  </div>
+  <div class="bottom-row">
+    <span class="site-badge">{{WEBSITE}}</span>
+  </div>
+</div>
+</body>
+</html>

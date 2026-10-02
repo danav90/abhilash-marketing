@@ -1,0 +1,73 @@
+{
+  "posts": [
+    {
+      "template": "quote",
+      "brand": "webscraper",
+      "platform": "instagram",
+      "variables": {
+        "HEADLINE": "Manual lead research costs you 20 hours per week. Automate it.",
+        "SUBTEXT": "Web Scraper Studio delivers 500 verified B2B leads in 24 hours.",
+        "BRAND": "Web Scraper Studio"
+      },
+      "output": "posts/webscraper_quote_01.png"
+    },
+    {
+      "template": "cover",
+      "brand": "webscraper",
+      "platform": "instagram",
+      "variables": {
+        "HEADLINE": "How to Find 500 B2B Leads in 24 Hours",
+        "SUBTEXT": "A 5-step process used by Indian sales teams",
+        "BRAND": "Web Scraper Studio",
+        "SLIDE_NUM": ""
+      },
+      "output": "posts/webscraper_cover_01.png"
+    },
+    {
+      "template": "quote",
+      "brand": "gymos",
+      "platform": "instagram",
+      "variables": {
+        "HEADLINE": "Your gym loses 5% of members every month. Most owners do not know why.",
+        "SUBTEXT": "GymOS tracks retention, payments, and attendance in one dashboard.",
+        "BRAND": "GymOS"
+      },
+      "output": "posts/gymos_quote_01.png"
+    },
+    {
+      "template": "case_study",
+      "brand": "gymos",
+      "platform": "linkedin",
+      "variables": {
+        "METRIC": "38%",
+        "METRIC_LABEL": "Improvement in member retention",
+        "DESCRIPTION": "BodyCare Gym used GymOS to identify at-risk members and reduce churn within 90 days.",
+        "BRAND": "GymOS"
+      },
+      "output": "posts/gymos_case_study_01.png"
+    },
+    {
+      "template": "quote",
+      "brand": "portfolio",
+      "platform": "instagram",
+      "variables": {
+        "HEADLINE": "I build systems that ship. From idea to production, end-to-end.",
+        "SUBTEXT": "Currently building GymOS and Web Scraper Studio.",
+        "BRAND": "Abhilash Singh Rajput"
+      },
+      "output": "posts/portfolio_quote_01.png"
+    },
+    {
+      "template": "cover",
+      "brand": "portfolio",
+      "platform": "linkedin",
+      "variables": {
+        "HEADLINE": "How I Built a Multi-Tenant SaaS for Indian Gyms in 6 Weeks",
+        "SUBTEXT": "A case study on GymOS architecture, stack, and delivery",
+        "BRAND": "Abhilash Singh Rajput",
+        "SLIDE_NUM": ""
+      },
+      "output": "posts/portfolio_cover_01.png"
+    }
+  ]
+}
