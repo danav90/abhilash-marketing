@@ -13,6 +13,35 @@ TEMPLATES_DIR = Path(__file__).resolve().parents[2] / "templates"
 INSTAGRAM_CAROUSEL_SIZE = (1080, 1350)
 LINKEDIN_SINGLE_SIZE = (1200, 627)
 
+DIMENSIONS = {
+    ("instagram", "single"): (1080, 1080),
+    ("instagram", "carousel"): (1080, 1350),
+    ("instagram", "reel"): (1080, 1920),
+    ("linkedin", "single"): (1200, 627),
+    ("linkedin", "document"): (1080, 1080),
+    ("linkedin", "text"): (1080, 1080),
+}
+
+
+def resolve_dimensions(platform: str = "instagram", post_type: str = "") -> tuple:
+    """Pick (width, height) for (platform, type).
+
+    Empty post_type preserves legacy behavior:
+      instagram -> 1080x1350 (carousel), linkedin -> 1200x627 (single).
+    """
+    plat = (platform or "instagram").strip().lower()
+    ptype = (post_type or "").strip().lower()
+    if not ptype:
+        if plat == "linkedin":
+            return LINKEDIN_SINGLE_SIZE
+        return INSTAGRAM_CAROUSEL_SIZE
+    key = (plat, ptype)
+    if key in DIMENSIONS:
+        return DIMENSIONS[key]
+    if plat == "linkedin":
+        return LINKEDIN_SINGLE_SIZE
+    return INSTAGRAM_CAROUSEL_SIZE
+
 
 def _inline_base_css(html: str, template_path: Path) -> str:
     """Inline brand_base.css so temp HTML renders even outside templates dir."""
@@ -106,27 +135,31 @@ async def render_template(
 def render_single(template: str, brand: str, variables: dict, output: Path) -> Path:
     """Sync wrapper around render_template with auto dimensions + brand colors.
 
-    - Auto-selects width/height: 1080x1350 default (instagram carousel),
-      1200x627 when variables contain platform=linkedin.
-    - Auto-selects brand colors based on `brand` arg.
+    Dimensions picked from (platform, type):
+      instagram single 1080x1080, carousel 1080x1350, reel 1080x1920,
+      linkedin single 1200x627, document/text 1080x1080.
+    Empty type preserves legacy: instagram -> 1080x1350, linkedin -> 1200x627.
+    Auto-selects brand colors + URL based on `brand` arg.
     """
     brand_key = (brand or "").strip().lower()
     colors = BRAND_COLORS.get(brand_key, BRAND_COLORS["webscraper"])
 
     variables = dict(variables or {})
-    # Merge platform default (empty) so replace never leaves {{platform}} behind.
-    platform = str(variables.get("platform", "")).strip().lower()
+    # Platform + post type drive dimensions.
+    platform = str(variables.get("platform", "instagram")).strip().lower() or "instagram"
+    post_type = str(variables.get("type", variables.get("post_type", ""))).strip().lower()
 
-    if platform == "linkedin":
-        width, height = LINKEDIN_SINGLE_SIZE
-    else:
-        width, height = INSTAGRAM_CAROUSEL_SIZE
+    width, height = resolve_dimensions(platform, post_type)
 
     # Defaults for common placeholders.
     if "BRAND" not in variables or not variables["BRAND"]:
         variables["BRAND"] = BRAND_DISPLAY.get(brand_key, brand)
+    site = BRAND_SITES.get(brand_key, "")
+    # URL badge: support both {{URL}} (new) and {{WEBSITE}} (legacy).
+    if "URL" not in variables or not variables["URL"]:
+        variables["URL"] = variables.get("WEBSITE") or site
     if "WEBSITE" not in variables or not variables["WEBSITE"]:
-        variables["WEBSITE"] = BRAND_SITES.get(brand_key, "")
+        variables["WEBSITE"] = variables.get("URL") or site
     if "SLIDE_NUM" not in variables:
         variables["SLIDE_NUM"] = ""
 

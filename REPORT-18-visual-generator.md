@@ -41,7 +41,7 @@ Untracked but ignored (not committed):
 
 ## Generated Sample Images
 
-All in posts/ (gitignored), verified with PIL:
+All in posts/ (gitignored), verified with PIL (Task 18.5: 8 files, see Fix section below for latest table):
 
 | File | Size (px) | Bytes | Brand/Platform |
 |---|---|---|---|
@@ -119,3 +119,39 @@ Re-ran batch twice back-to-back: both runs total=6 success=6 failed=0. Overwrite
 
 - Task 19: Build LinkedIn PDF carousels from PNGs (1080x1080 squares).
 - Task 20: Instagram Reels (video from cover + tip slides).
+
+## Fix (Task 18.5) — Adaptive Typography + URL Badge + Platform Sizing
+
+Issues fixed: portfolio_cover headline cut after "in 6" (96px fixed, no shrink); gymos_case_study description cut + URL badge off-screen (627px landscape too short for 200px metric + 100px padding); polish gaps (brand 28px, no texture, SWIPE only on one cover).
+
+Changes:
+- FIX 1 adaptive JS (char-count, Option B): cover 96/76/60/48/40; quote/cta 72/60/52/44/38; tip heading 60/52/46/40/34; subtext/body 36/32 base to 28 (>80 chars) / 24 (>120); case_study description 32/28/26/24 (>80/120/200), metric-label 30/26, long metric capped. Plus compact mode for viewport height <= 700px (linkedin single): container padding 100px to 60px, headline cap 48px, subtext 22px, metric 110px, label 24px, description 20px.
+- FIX 2 flexible container: height 100vh to min-height 100vh, justify space-between, top/middle/bottom blocks, bottom margin-top auto + padding-top 40px. Middle flex-1 centered.
+- FIX 3 guaranteed URL badge: all 5 templates end with bottom-anchored .url-badge > .brand-url using {{URL}}; renderer injects per brand (portfolio abhilash.dev, gymos bodycare-gym.vercel.app, webscraper webscraperstudio.vercel.app) and syncs {{WEBSITE}} legacy alias. SWIPE bottom-right only on cover.html.
+- FIX 4 polish: brand 22px/0.15em/accent, rule 1px/0.3 opacity, headline 800/1.15/-0.02em, subtext 400/1.4/rgba 0.75/margin 32px, padding 100px 80px, badge pill 700, radial gradient overlay, overflow-wrap break-word.
+- FIX 5 platform dims: DIMENSIONS dict + resolve_dimensions() in generate_image.py; batch type field forwarded; CLI --type. instagram single 1080x1080, carousel 1080x1350, reel 1080x1920; linkedin single 1200x627, document/text 1080x1080. Empty type keeps legacy (instagram 1080x1350, linkedin 1200x627) so existing tests pass.
+- FIX 6 batch now 8 entries (added portfolio_quote_long 107-char headline, gymos_case_study_long 289-char description).
+
+Before/after (bytes changed with gradient + fixes; dimensions now exact for all):
+| File | Before (px/bytes) | After (px/bytes) |
+|---|---|---|
+| posts/webscraper_quote_01.png | 1080x1350 / 70943 | 1080x1350 / 188537 |
+| posts/webscraper_cover_01.png | 1080x1350 / 62543 | 1080x1350 / 188249 |
+| posts/gymos_quote_01.png | 1080x1350 / 79146 | 1080x1350 / 192751 |
+| posts/gymos_case_study_01.png | 1200x627 / 52289 | 1200x627 / 125502 |
+| posts/portfolio_quote_01.png | 1080x1350 / 62799 | 1080x1350 / 188471 |
+| posts/portfolio_cover_01.png | 1200x627 / 47454 | 1200x627 / 138653 |
+| posts/portfolio_quote_long.png | new | 1080x1350 / 219241 |
+| posts/gymos_case_study_long.png | new | 1080x1080 / 199235 |
+
+Screenshot verification (Playwright evaluate, headBottom < urlTop <= viewport height):
+- webscraper_quote_01: 1080x1350 head 677/52px url 1186-1250 OK
+- webscraper_cover_01: 1080x1350 head 799/96px url 1186-1250 SWIPE OK
+- gymos_quote_01: 1080x1350 head 677/52px url 1186-1250 OK
+- gymos_case_study_01: 1200x627 head 286/110px url 503-567 OK (was 735/627 overflow, url 571-635 clipped)
+- portfolio_quote_01: 1080x1350 head 647/52px url 1186-1250 OK
+- portfolio_cover_01: 1200x627 head 353/48px url 503-567 SWIPE OK (was 553/url 725-789 clipped)
+- portfolio_quote_long: 1080x1350 head 694/44px url 1186-1250 OK (107 chars shrunk 72 to 44)
+- gymos_case_study_long: 1080x1080 head 482/200px url 916-980 OK (289 chars at 24px)
+
+Also verified: no {{...}} placeholders left in rendered HTML, bg pixels still exact (#1F4E78 / #0F172A), system-ui only, zero emojis, pytest 5 passed, batch total=8 success=8, copied to /mnt/sdcard/Download/marketing-posts/. URLs now guaranteed visible bottom-left on all templates.

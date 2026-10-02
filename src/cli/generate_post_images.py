@@ -20,6 +20,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--template", type=str, default="quote", help="Template name (quote, cover, tip_carousel, case_study, cta)")
     p.add_argument("--brand", type=str, default="webscraper", help="Brand key (portfolio, gymos, webscraper)")
     p.add_argument("--platform", type=str, default="instagram", help="Platform (instagram, linkedin)")
+    p.add_argument("--type", dest="post_type", type=str, default="", help="Post type (single, carousel, reel, document, text)")
     p.add_argument("--headline", type=str, default="", help="Headline text")
     p.add_argument("--subtext", type=str, default="", help="Subtext text")
     p.add_argument("--brand-name", type=str, default="", help="Display brand name (defaults per brand)")
@@ -67,6 +68,7 @@ def main(argv=None) -> int:
         "DESCRIPTION": args.description,
         "SLIDE_NUM": args.slide_num,
         "platform": args.platform,
+        "type": args.post_type,
     }
     if args.brand_name:
         variables["BRAND"] = args.brand_name

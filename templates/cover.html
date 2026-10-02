@@ -15,59 +15,89 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
   .headline {
     font-size: 96px;
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     color: var(--brand-text);
     margin: 0;
-    max-width: 920px;
+    max-width: 900px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
   .subtext {
     font-size: 36px;
-    line-height: 1.5;
-    color: var(--brand-text-muted);
+    font-weight: 400;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.75);
     max-width: 820px;
-    margin: 40px 0 0 0;
-  }
-  .center-block {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-  }
-  .bottom-row {
-    margin-top: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .swipe-hint {
-    font-size: 24px;
-    color: var(--brand-text-muted);
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    margin: 32px 0 0 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 </style>
 </head>
 <body>
 <div class="container">
-  <div>
+  <div class="top">
     <div class="brand-row">
       <div class="brand-name">{{BRAND}}</div>
       <div class="slide-badge">{{SLIDE_NUM}}</div>
     </div>
     <div class="brand-rule"></div>
   </div>
-  <div class="center-block">
+  <div class="middle">
     <p class="headline">{{HEADLINE}}</p>
     <p class="subtext">{{SUBTEXT}}</p>
   </div>
-  <div class="bottom-row">
-    <span class="site-badge">{{WEBSITE}}</span>
-    <span class="swipe-hint">Swipe</span>
+  <div class="bottom">
+    <div class="url-badge">
+      <span class="brand-url">{{URL}}</span>
+    </div>
+    <span class="swipe">SWIPE</span>
   </div>
 </div>
+<script>
+(function() {
+  var h = document.querySelector('.headline');
+  if (h) {
+    var len = (h.innerText || h.textContent || '').length;
+    var size = 96;
+    if (len > 40) size = 76;
+    if (len > 60) size = 60;
+    if (len > 90) size = 48;
+    if (len > 120) size = 40;
+    h.style.fontSize = size + 'px';
+  }
+  var s = document.querySelector('.subtext');
+  if (s) {
+    var slen = (s.innerText || s.textContent || '').length;
+    var ssize = 36;
+    if (slen > 80) ssize = 28;
+    if (slen > 120) ssize = 24;
+    s.style.fontSize = ssize + 'px';
+  }
+  try {
+    if (window.innerHeight <= 700) {
+      var c = document.querySelector('.container');
+      if (c) { c.style.paddingTop = '60px'; c.style.paddingBottom = '60px'; }
+      var b = document.querySelector('.bottom');
+      if (b) { b.style.paddingTop = '20px'; }
+      if (h) {
+        var cur = parseInt((h.style.fontSize || '48px').replace('px', ''), 10);
+        if (cur > 48) h.style.fontSize = '48px';
+      }
+      if (s) {
+        var scur = parseInt((s.style.fontSize || '24px').replace('px', ''), 10);
+        if (scur > 22) s.style.fontSize = '22px';
+        s.style.marginTop = '20px';
+      }
+    }
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>

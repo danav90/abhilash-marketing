@@ -32,10 +32,13 @@ def generate_batch(config_path: Path) -> dict:
         template = entry.get("template", "")
         brand = entry.get("brand", "")
         platform = entry.get("platform", "")
+        post_type = entry.get("type", entry.get("post_type", ""))
         variables = dict(entry.get("variables") or {})
-        # Merge top-level platform into variables so render_single picks dimensions.
+        # Merge top-level platform/type into variables so render_single picks dimensions.
         if platform and "platform" not in variables:
             variables["platform"] = platform
+        if post_type and "type" not in variables and "post_type" not in variables:
+            variables["type"] = post_type
         rel_output = entry.get("output", "")
         # Resolve relative outputs against repo root.
         out_path = Path(rel_output)

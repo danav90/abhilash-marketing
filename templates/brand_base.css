@@ -21,13 +21,35 @@ body {
 
 .container {
   width: 100%;
-  height: 100vh;
-  background: var(--brand-bg);
+  min-height: 100vh;
+  background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05), transparent 50%), var(--brand-bg);
   color: var(--brand-text);
   display: flex;
   flex-direction: column;
-  padding: 100px 80px 80px 80px;
+  justify-content: space-between;
+  padding: 100px 80px;
   box-sizing: border-box;
+}
+
+.top {
+  flex-shrink: 0;
+}
+
+.middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: auto;
+  padding-top: 40px;
+  flex-shrink: 0;
 }
 
 .brand-row {
@@ -37,33 +59,59 @@ body {
 }
 
 .brand-name {
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--brand-accent);
 }
 
 .brand-rule {
-  height: 2px;
+  height: 1px;
   background: var(--brand-accent);
-  opacity: 0.5;
+  opacity: 0.3;
   margin-top: 24px;
   margin-bottom: 0;
   width: 100%;
 }
 
-.site-badge {
+.site-badge,
+.url-badge {
   display: inline-block;
   background: var(--brand-accent);
   color: #FFFFFF;
   font-size: 24px;
-  font-weight: 600;
-  padding: 14px 28px;
+  font-weight: 700;
+  padding: 18px 32px;
   border-radius: 999px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.02em;
+}
+
+.url-badge .brand-url {
+  color: #FFFFFF;
+}
+
+.swipe,
+.swipe-hint {
+  color: rgba(255,255,255,0.6);
+  font-size: 20px;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .spacer {
   flex: 1;
+}
+
+/* Legacy aliases kept for compatibility */
+.center-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.bottom-row {
+  margin-top: 40px;
 }

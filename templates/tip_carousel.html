@@ -15,49 +15,88 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
   .heading {
     font-size: 60px;
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     color: var(--brand-text);
     margin: 0;
     max-width: 900px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
   .body-text {
     font-size: 36px;
-    line-height: 1.5;
-    color: var(--brand-text-muted);
+    font-weight: 400;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.75);
     max-width: 850px;
-    margin: 36px 0 0 0;
-  }
-  .center-block {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-  }
-  .bottom-row {
-    margin-top: 40px;
+    margin: 32px 0 0 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 </style>
 </head>
 <body>
 <div class="container">
-  <div>
+  <div class="top">
     <div class="brand-row">
       <div class="brand-name">{{BRAND}}</div>
       <div class="slide-badge">{{SLIDE_NUM}}</div>
     </div>
     <div class="brand-rule"></div>
   </div>
-  <div class="center-block">
+  <div class="middle">
     <p class="heading">{{HEADLINE}}</p>
     <p class="body-text">{{SUBTEXT}}</p>
   </div>
-  <div class="bottom-row">
-    <span class="site-badge">{{WEBSITE}}</span>
+  <div class="bottom">
+    <div class="url-badge">
+      <span class="brand-url">{{URL}}</span>
+    </div>
   </div>
 </div>
+<script>
+(function() {
+  var h = document.querySelector('.heading');
+  if (h) {
+    var len = (h.innerText || h.textContent || '').length;
+    var size = 60;
+    if (len > 40) size = 52;
+    if (len > 60) size = 46;
+    if (len > 90) size = 40;
+    if (len > 120) size = 34;
+    h.style.fontSize = size + 'px';
+  }
+  var s = document.querySelector('.body-text');
+  if (s) {
+    var slen = (s.innerText || s.textContent || '').length;
+    var ssize = 36;
+    if (slen > 80) ssize = 28;
+    if (slen > 120) ssize = 24;
+    s.style.fontSize = ssize + 'px';
+  }
+  try {
+    if (window.innerHeight <= 700) {
+      var c = document.querySelector('.container');
+      if (c) { c.style.paddingTop = '60px'; c.style.paddingBottom = '60px'; }
+      var b = document.querySelector('.bottom');
+      if (b) { b.style.paddingTop = '20px'; }
+      if (h) {
+        var cur = parseInt((h.style.fontSize || '40px').replace('px', ''), 10);
+        if (cur > 40) h.style.fontSize = '40px';
+      }
+      if (s) {
+        var scur = parseInt((s.style.fontSize || '24px').replace('px', ''), 10);
+        if (scur > 22) s.style.fontSize = '22px';
+        s.style.marginTop = '20px';
+      }
+    }
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>

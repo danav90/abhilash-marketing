@@ -4,6 +4,7 @@
       "template": "quote",
       "brand": "webscraper",
       "platform": "instagram",
+      "type": "carousel",
       "variables": {
         "HEADLINE": "Manual lead research costs you 20 hours per week. Automate it.",
         "SUBTEXT": "Web Scraper Studio delivers 500 verified B2B leads in 24 hours.",
@@ -15,6 +16,7 @@
       "template": "cover",
       "brand": "webscraper",
       "platform": "instagram",
+      "type": "carousel",
       "variables": {
         "HEADLINE": "How to Find 500 B2B Leads in 24 Hours",
         "SUBTEXT": "A 5-step process used by Indian sales teams",
@@ -27,6 +29,7 @@
       "template": "quote",
       "brand": "gymos",
       "platform": "instagram",
+      "type": "carousel",
       "variables": {
         "HEADLINE": "Your gym loses 5% of members every month. Most owners do not know why.",
         "SUBTEXT": "GymOS tracks retention, payments, and attendance in one dashboard.",
@@ -38,6 +41,7 @@
       "template": "case_study",
       "brand": "gymos",
       "platform": "linkedin",
+      "type": "single",
       "variables": {
         "METRIC": "38%",
         "METRIC_LABEL": "Improvement in member retention",
@@ -50,6 +54,7 @@
       "template": "quote",
       "brand": "portfolio",
       "platform": "instagram",
+      "type": "carousel",
       "variables": {
         "HEADLINE": "I build systems that ship. From idea to production, end-to-end.",
         "SUBTEXT": "Currently building GymOS and Web Scraper Studio.",
@@ -61,6 +66,7 @@
       "template": "cover",
       "brand": "portfolio",
       "platform": "linkedin",
+      "type": "single",
       "variables": {
         "HEADLINE": "How I Built a Multi-Tenant SaaS for Indian Gyms in 6 Weeks",
         "SUBTEXT": "A case study on GymOS architecture, stack, and delivery",
@@ -68,6 +74,31 @@
         "SLIDE_NUM": ""
       },
       "output": "posts/portfolio_cover_01.png"
+    },
+    {
+      "template": "quote",
+      "brand": "portfolio",
+      "platform": "instagram",
+      "type": "carousel",
+      "variables": {
+        "HEADLINE": "How I went from manual spreadsheets to shipping GymOS and Web Scraper Studio for Indian businesses in weeks",
+        "SUBTEXT": "A practical look at the automation stack behind two live products used by gyms and sales teams across India.",
+        "BRAND": "Abhilash Singh Rajput"
+      },
+      "output": "posts/portfolio_quote_long.png"
+    },
+    {
+      "template": "case_study",
+      "brand": "gymos",
+      "platform": "linkedin",
+      "type": "document",
+      "variables": {
+        "METRIC": "38%",
+        "METRIC_LABEL": "Improvement in member retention over 90 days",
+        "DESCRIPTION": "BodyCare Gym in Pune used GymOS attendance tracking, payment dues lists, and weekly at-risk member reports to follow up within 48 hours. The front desk logged attendance in seconds, owners reviewed churn signals every Monday, and trainers called lapsed members before dues slipped further.",
+        "BRAND": "GymOS"
+      },
+      "output": "posts/gymos_case_study_long.png"
     }
   ]
 }
