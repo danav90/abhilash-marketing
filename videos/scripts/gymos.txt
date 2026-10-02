@@ -1,0 +1,10 @@
+Meet GymOS.
+A multi-tenant SaaS built for Indian gyms with one hundred and fifty to five hundred members.
+Most gym owners lose thirty to forty percent of new members in the first ninety days.
+Not because of equipment. Because attendance and fee follow-ups live in paper registers.
+GymOS fixes this in one dashboard.
+QR check-in in seconds. Absent-member reports that flag at-risk members in fourteen days.
+Due lists sorted by overdue amount. Renewal forecasts for the next sixty days.
+One gym in Pune recovered forty-eight thousand rupees in pending fees in thirty days.
+Another improved retention by thirty-eight percent within ninety days.
+Try the live demo at bodycare-gym dot vercel dot app.

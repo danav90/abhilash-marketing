@@ -1,0 +1,12 @@
+Meet Web Scraper Studio.
+Verified B2B business leads from Google Maps, five hundred to five thousand per project, delivered in twenty-four to forty-eight hours.
+Every lead includes business name, phone, address, Google ratings, and verified email.
+We serve sales agencies, B2B SaaS companies, NBFCs, recruitment firms, and real estate brokers across India.
+Here is how it works.
+You tell us your target, industry, city, and quantity.
+We extract fresh data from Google Maps in real time.
+We enrich each lead with verified emails.
+And we deliver clean, deduplicated files in Excel, CSV, and JSON.
+Pricing starts at five thousand rupees for five hundred leads.
+Free ten-row sample before you commit.
+Request your sample at webscraperstudio dot vercel dot app.
