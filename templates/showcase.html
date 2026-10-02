@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1080px; height: 1620px; overflow: hidden;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: {{BG_COLOR}};
+    color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+  }
+  .showcase {
+    width: 1080px; height: 1620px;
+    display: grid;
+    grid-template-rows: 60px 260px 100px 420px 320px 280px 120px 60px;
+    background: radial-gradient(circle at 85% 8%, rgba(255,255,255,0.06), transparent 45%), {{BG_COLOR}};
+  }
+  section { overflow: hidden; padding: 0 44px; }
+  .card {
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    padding: 8px 10px;
+  }
+  .sec-label {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.22em;
+    color: {{ACCENT_COLOR}}; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  /* 1 HEADER 60px */
+  section.s-header {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    padding-top: 0; padding-bottom: 0;
+  }
+  .logo { font-size: 26px; font-weight: 800; letter-spacing: 0.12em; color: #FFFFFF; white-space: nowrap; }
+  .logo .accent { color: {{ACCENT_COLOR}}; }
+  .tagline { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.65); white-space: nowrap; }
+  /* 2 HERO 260px */
+  section.s-hero { text-align: center; padding-top: 18px; }
+  .hero-line {
+    font-size: clamp(30px, 4.2vw, 44px);
+    font-size: 40px;
+    font-weight: 800; line-height: 1.15; letter-spacing: -0.01em;
+    max-width: 940px; margin: 0 auto;
+    overflow-wrap: break-word;
+  }
+  .hero-sub { font-size: 17px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.75); max-width: 880px; margin: 10px auto 0 auto; }
+  .hero-meta { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px; }
+  .loc { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: {{ACCENT_COLOR}}; }
+  .cta { display: inline-block; font-size: 14px; font-weight: 800; padding: 9px 22px; border-radius: 999px; letter-spacing: 0.02em; white-space: nowrap; }
+  .cta-primary { background: {{ACCENT_COLOR}}; color: #06281A; }
+  .cta-secondary { border: 1.5px solid rgba(255,255,255,0.5); color: #FFFFFF; }
+  /* 3 QUALITY ROW 100px */
+  section.s-qualities { padding-top: 10px; }
+  .q-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .q-item { text-align: center; padding: 6px 6px; }
+  .q-item .q-sym { font-size: 12px; color: {{ACCENT_COLOR}}; }
+  .q-item .q-title { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; margin-top: 2px; }
+  .q-item .q-desc { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.65); line-height: 1.3; margin-top: 2px; }
+  /* 4 THREE-COL 420px */
+  section.s-threecol { padding-top: 6px; }
+  .three-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; height: 372px; }
+  .col-card { padding: 12px 12px; display: flex; flex-direction: column; overflow: hidden; }
+  .col-card ul { list-style: none; }
+  .col-card li { font-size: 12.5px; line-height: 1.5; color: rgba(255,255,255,0.88); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 4px 0; overflow-wrap: break-word; }
+  .col-card li:last-child { border-bottom: none; }
+  .col-card li .sym { color: {{ACCENT_COLOR}}; margin-right: 6px; }
+  .pill { display: inline-block; font-size: 11px; font-weight: 700; border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 2px 9px; margin: 0 4px 5px 0; color: rgba(255,255,255,0.9); }
+  /* 5 PROJECTS 320px */
+  section.s-projects { padding-top: 6px; }
+  .proj-grid { display: grid; gap: 7px; }
+  .proj-grid.cols-5 { grid-template-columns: repeat(5, 1fr); }
+  .proj-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .proj-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .proj { padding: 9px 10px; overflow: hidden; }
+  .proj .p-name { font-size: 14px; font-weight: 800; }
+  .proj .p-status { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; background: {{ACCENT_COLOR}}; color: #06281A; border-radius: 999px; padding: 2px 8px; margin-left: 6px; vertical-align: middle; }
+  .proj .p-status.dim { background: transparent; border: 1px solid rgba(255,255,255,0.4); color: rgba(255,255,255,0.8); }
+  .proj .p-desc { font-size: 11.5px; color: rgba(255,255,255,0.7); line-height: 1.35; margin-top: 3px; }
+  /* 6 SERVICES 280px */
+  section.s-services { padding-top: 6px; }
+  .svc-layout { display: grid; grid-template-columns: 1fr 220px; gap: 10px; height: 232px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; align-content: start; }
+  .svc { padding: 8px 10px; }
+  .svc .s-name { font-size: 12px; font-weight: 800; }
+  .svc .s-price { font-size: 14px; font-weight: 800; color: {{ACCENT_COLOR}}; margin-top: 2px; }
+  .guarantees { padding: 10px 12px; }
+  .guarantees ul { list-style: none; }
+  .guarantees li { font-size: 12px; line-height: 1.7; color: rgba(255,255,255,0.88); }
+  .guarantees li .sym { color: {{ACCENT_COLOR}}; margin-right: 6px; }
+  /* 7 BOTTOM ROW 120px */
+  section.s-bottom { padding-top: 6px; }
+  .bottom-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap: 10px; height: 100px; }
+  .b-card { padding: 8px 12px; overflow: hidden; }
+  .b-card .b-title { font-size: 11px; font-weight: 800; letter-spacing: 0.22em; color: {{ACCENT_COLOR}}; text-transform: uppercase; }
+  .b-card .b-body { font-size: 12.5px; font-weight: 600; line-height: 1.5; margin-top: 4px; }
+  .score { display: inline-block; text-align: center; margin-right: 8px; }
+  .score .n { font-size: 19px; font-weight: 800; color: {{ACCENT_COLOR}}; }
+  .score .l { font-size: 8.5px; font-weight: 700; letter-spacing: 0.06em; color: rgba(255,255,255,0.6); text-transform: uppercase; }
+  /* 8 FOOTER 60px */
+  section.s-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 0; padding-bottom: 0;
+  }
+  .foot-tag { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; }
+  .foot-tags { font-size: 11.5px; font-weight: 600; color: rgba(255,255,255,0.6); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="showcase">
+  <section class="s-header">
+    <div class="logo">{{HEADER_LOGO}}</div>
+    <div class="tagline">{{HEADER_TAGLINE}}</div>
+  </section>
+  <section class="s-hero">
+    <p class="hero-line">{{HERO_LINE}}</p>
+    <p class="hero-sub">{{HERO_SUBTITLE}}</p>
+    <div class="hero-meta">
+      <span class="loc">&#9670; {{HERO_LOCATION}}</span>
+      <span class="cta cta-primary">{{CTA_PRIMARY}}</span>
+      <span class="cta cta-secondary">{{CTA_SECONDARY}}</span>
+    </div>
+  </section>
+  <section class="s-qualities">
+    <div class="sec-label">Why it stands out</div>
+    <div class="q-row">{{QUALITIES_HTML}}</div>
+  </section>
+  <section class="s-threecol">
+    <div class="three-grid">
+      <div class="card col-card">
+        <div class="sec-label">&#9632; Tech stack</div>
+        <div>{{TECH_HTML}}</div>
+      </div>
+      <div class="card col-card">
+        <div class="sec-label">&#9673; Key features</div>
+        <ul>{{FEATURES_HTML}}</ul>
+      </div>
+      <div class="card col-card">
+        <div class="sec-label">&#9650; Optimization</div>
+        <ul>{{OPTIMIZATION_HTML}}</ul>
+      </div>
+    </div>
+  </section>
+  <section class="s-projects">
+    <div class="sec-label">&#9679; {{PROJECTS_TITLE}}</div>
+    <div class="proj-grid {{PROJECTS_COLS}}">{{PROJECTS_HTML}}</div>
+  </section>
+  <section class="s-services">
+    <div class="sec-label">&#9672; {{SERVICES_TITLE}}</div>
+    <div class="svc-layout">
+      <div class="svc-grid">{{SERVICES_HTML}}</div>
+      <div class="card guarantees">
+        <div class="sec-label">&#9670; Guarantees</div>
+        <ul>{{GUARANTEES_HTML}}</ul>
+      </div>
+    </div>
+  </section>
+  <section class="s-bottom">
+    <div class="bottom-grid">
+      <div class="card b-card"><div class="b-title">{{SCORES_TITLE}}</div><div class="b-body">{{SCORES_HTML}}</div></div>
+      <div class="card b-card"><div class="b-title">Deployed on</div><div class="b-body">{{DEPLOYED_HTML}}</div></div>
+      <div class="card b-card"><div class="b-title">Connect</div><div class="b-body">{{CONNECT_HTML}}</div></div>
+    </div>
+  </section>
+  <section class="s-footer">
+    <div class="foot-tag">{{FOOTER_TAGLINE}}</div>
+    <div class="foot-tags">{{FOOTER_HASHTAGS}}</div>
+  </section>
+</div>
+<script>
+(function() {
+  var h = document.querySelector('.hero-line');
+  if (h) {
+    var len = (h.innerText || h.textContent || '').length;
+    var size = 40;
+    if (len > 40) size = 36;
+    if (len > 55) size = 32;
+    if (len > 75) size = 28;
+    h.style.fontSize = size + 'px';
+  }
+})();
+</script>
+</body>
+</html>

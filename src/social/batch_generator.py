@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from src.social.generate_image import render_single
+from src.social import showcase_renderer as showcase_mod
 
 OUTPUT_ROOT = Path(__file__).resolve().parents[2]
 
@@ -45,7 +46,11 @@ def generate_batch(config_path: Path) -> dict:
         if not out_path.is_absolute():
             out_path = OUTPUT_ROOT / rel_output
         try:
-            result = render_single(template, brand, variables, out_path)
+            if (template or "").strip().lower() == "showcase":
+                # Task 20: data-driven showcase sheet (1080x1620), no variables needed.
+                result = showcase_mod.render_showcase(brand, out_path)
+            else:
+                result = render_single(template, brand, variables, out_path)
             success += 1
             outputs.append(str(result))
         except Exception as exc:  # noqa: BLE001 - batch must continue

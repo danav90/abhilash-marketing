@@ -99,6 +99,21 @@
         "BRAND": "GymOS"
       },
       "output": "posts/gymos_case_study_long.png"
+    },
+    {
+      "template": "showcase",
+      "brand": "portfolio",
+      "output": "posts/showcase_portfolio.png"
+    },
+    {
+      "template": "showcase",
+      "brand": "gymos",
+      "output": "posts/showcase_gymos.png"
+    },
+    {
+      "template": "showcase",
+      "brand": "webscraper",
+      "output": "posts/showcase_webscraper.png"
     }
   ]
 }
